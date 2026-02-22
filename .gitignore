@@ -71,3 +71,4 @@ models/
 *.backup
 backend/media
 
+staticfiles/
