@@ -54,6 +54,52 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField(required=True, help_text='JWT refresh token для инвалидации')
+
+
+class RefreshTokenSerializer(serializers.Serializer):
+    refresh = serializers.CharField(required=True, help_text='JWT refresh token')
+
+
+class SendCodeSerializer(serializers.Serializer):
+    phone = serializers.CharField(required=True, max_length=20, help_text='+998901234567')
+
+
+class VerifyCodeSerializer(serializers.Serializer):
+    phone = serializers.CharField(required=True, max_length=20)
+    code = serializers.CharField(required=True, help_text='SMS-код (в dev: пароль)')
+
+
+# --- OTP Flow (2025–2026 mobile app standard) ---
+
+import re
+
+
+def validate_e164(value):
+    """E.164: + и цифры, для Узбекистана +998XXXXXXXXX."""
+    if not value or not value.startswith('+'):
+        raise serializers.ValidationError('Номер должен быть в формате E.164, например +998901234567')
+    digits = re.sub(r'\D', '', value)
+    if len(digits) < 10 or len(digits) > 15:
+        raise serializers.ValidationError('Неверная длина номера')
+    return value
+
+
+class SendOTPRequestSerializer(serializers.Serializer):
+    phone_number = serializers.CharField(
+        required=True,
+        max_length=20,
+        validators=[validate_e164],
+        help_text='Номер в формате E.164, например +998901234567',
+    )
+
+
+class VerifyOTPRequestSerializer(serializers.Serializer):
+    verifyID = serializers.CharField(required=True, help_text='ID из ответа send-otp')
+    otp_code = serializers.CharField(required=True, min_length=4, max_length=10, help_text='Код подтверждения')
+
+
 
 
 

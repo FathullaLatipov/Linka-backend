@@ -1,13 +1,21 @@
 from django.urls import path
 
-from .views import BookingCreateApiView, BookingListApiView, MyBookingsListApiView, BookingCancelUpdateApiView, \
-    BookingDetailedInfoRetrieveApiView
+from .views import (
+    BookingCreateApiView,
+    BookingsListCreateView,
+    MyBookingsListApiView,
+    BookingCancelUpdateApiView,
+    BookingDetailedInfoRetrieveApiView,
+    BookingJoinView,
+)
 
 urlpatterns = [
-    path("bookings/book",BookingCreateApiView.as_view(), name="booking-create"),
-    path("bookings/",BookingListApiView.as_view(), name="booking-list"),
-    path("bookings/<int:user_id>",MyBookingsListApiView.as_view(), name="my-booking-list"),
-    path("bookings/<int:booking_id>/cancel/",BookingCancelUpdateApiView.as_view(), name="booking-cancel"),
-    path("bookings/<int:user_id>",MyBookingsListApiView.as_view(), name="my-booking-list"),
-    path("bookings/<int:pk>",BookingDetailedInfoRetrieveApiView.as_view(), name="detailed-info"),
+    # Bookings (tz.json)
+    path("bookings/", BookingsListCreateView.as_view(), name="bookings-list-create"),
+    path("bookings/<int:bookingId>/", BookingDetailedInfoRetrieveApiView.as_view(), name="bookings-detail"),
+    path("bookings/<int:bookingId>/cancel/", BookingCancelUpdateApiView.as_view(), name="bookings-cancel"),
+    path("bookings/<int:bookingId>/join/", BookingJoinView.as_view(), name="bookings-join"),
+    # Legacy
+    path("bookings/book/", BookingCreateApiView.as_view(), name="booking-create"),
+    path("bookings/<int:user_id>/my/", MyBookingsListApiView.as_view(), name="my-booking-list"),
 ]

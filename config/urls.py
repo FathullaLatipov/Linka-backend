@@ -39,14 +39,14 @@ Authorization: Bearer <your_access_token>
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # API endpoints (order affects Swagger tag grouping)
-    path("api/", include("apps.users.urls")),
-    path("api/", include("apps.student_profiles.urls")),
-    path("api/", include("apps.tutors_profiles.urls")),
-    path("api/", include("apps.lessons.urls")),
-    path("api/", include("apps.bookings.urls")),
-    path("api/", include("apps.reviews.urls")),
-    path("api/", include("apps.reports.urls")),
+    # API v1 (matches tz.json spec)
+    path("api/v1/", include("apps.users.urls")),
+    path("api/v1/", include("apps.student_profiles.urls")),
+    path("api/v1/", include("apps.tutors_profiles.urls")),
+    path("api/v1/", include("apps.lessons.urls")),
+    path("api/v1/", include("apps.bookings.urls")),
+    path("api/v1/", include("apps.reviews.urls")),
+    path("api/v1/", include("apps.reports.urls")),
     re_path(r"^swagger/$", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     re_path(r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
