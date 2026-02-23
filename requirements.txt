@@ -1,4 +1,5 @@
 djangorestframework-simplejwt
+django-jazzmin
 django
 djangorestframework
 drf-yasg

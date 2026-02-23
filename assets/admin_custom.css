@@ -1,0 +1,48 @@
+/* Linka Admin — текст чёрным на всех страницах */
+.content-header h1,
+.content-header h1.h4,
+.content-header .breadcrumb-item,
+.content-header .breadcrumb-item.active,
+.content-header .breadcrumb-item a,
+.content-wrapper .content-header *,
+.content-wrapper h1,
+.content-wrapper h2,
+.content-wrapper h3,
+.content-wrapper h4,
+.content-wrapper .card-title,
+.content-wrapper .main-footer {
+    color: #000 !important;
+}
+
+/* Breadcrumbs — чёрный текст */
+.breadcrumb .breadcrumb-item,
+.breadcrumb .breadcrumb-item.active,
+.breadcrumb li.breadcrumb-item,
+.content-header .breadcrumb li,
+ol.breadcrumb li,
+ol.breadcrumb .breadcrumb-item {
+    color: #000 !important;
+}
+
+/* Action counter "0 of 3 selected" — чёрный */
+.actions .action-counter,
+.actions span,
+#changelist-form .actions *,
+.actions label,
+select[name="action"] ~ span,
+.action-counter {
+    color: #000 !important;
+}
+
+/* DataTables info "0 student profiles" — чёрный */
+.dataTables_info,
+.dataTables_info *,
+div.dataTables_info {
+    color: #000 !important;
+}
+.main-sidebar .brand-link {
+    color: #fff !important;
+}
+.content-header .breadcrumb-item a:hover {
+    color: #333 !important;
+}
