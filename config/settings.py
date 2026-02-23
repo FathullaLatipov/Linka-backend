@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-g0to4!8zo!2+sk*0upksxrx^)%+_hyo(r(d6on02d^i(t5jdvd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["164.90.219.190", "127.0.0.1", "localhost",]
+ALLOWED_HOSTS = ["linka.homescare.uz","164.90.219.190", "127.0.0.1", "localhost",]
 
 
 # Application definition
