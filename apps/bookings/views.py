@@ -47,9 +47,8 @@ class BookingCreateApiView(CreateAPIView):
 @swagger_auto_schema(
     tags=['Bookings'],
     operation_summary='Мои бронирования',
-    operation_description='Список бронирований текущего пользователя или по user_id в URL (legacy). Query: status, page, limit.',
+    operation_description='Список бронирований текущего пользователя. Query: status, page, limit.',
     manual_parameters=[
-        openapi.Parameter('user_id', openapi.IN_PATH, type=openapi.TYPE_INTEGER, required=True, description='ID пользователя'),
         openapi.Parameter('status', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='upcoming, completed, cancelled, all'),
         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER),
         openapi.Parameter('limit', openapi.IN_QUERY, type=openapi.TYPE_INTEGER),
@@ -61,15 +60,10 @@ class BookingCreateApiView(CreateAPIView):
 )
 class MyBookingsListApiView(ListAPIView):
     serializer_class = BookingSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_id = self.kwargs.get("user_id")
-        if user_id is not None:
-            return Bookings.objects.filter(user=user_id)
-        if self.request.user.is_authenticated:
-            return Bookings.objects.filter(user=self.request.user.id)
-        return Bookings.objects.none()
+        return Bookings.objects.filter(student=self.request.user)
 
 
 class BookingsListCreateView(APIView):
@@ -92,7 +86,7 @@ class BookingsListCreateView(APIView):
     def get(self, request):
         qs = Bookings.objects.all()
         if request.user.is_authenticated:
-            qs = qs.filter(user=request.user.id)
+            qs = qs.filter(student=request.user)
         serializer = BookingSerializer(qs, many=True)
         return Response({"success": True, "data": serializer.data})
 

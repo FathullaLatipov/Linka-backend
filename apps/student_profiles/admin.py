@@ -4,5 +4,12 @@ from .models import StudentProfile
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'englishLevel', 'user', 'created_at')
+    list_display = (
+        'pk',
+        'first_name',
+        'last_name',
+        'englishLevel',
+        'user__phone',
+        'created_at'
+    )
     search_fields = ('first_name', 'last_name')

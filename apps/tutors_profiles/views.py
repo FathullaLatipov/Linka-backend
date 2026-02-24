@@ -143,7 +143,6 @@ class TutorProfileDeleteAPIView(DestroyAPIView):
     operation_summary='Расписание преподавателя',
     operation_description='Свободные слоты по tutorId. Query: date (YYYY-MM-DD), duration (20,30,40,60).',
     manual_parameters=[
-        openapi.Parameter('tutorId', openapi.IN_PATH, type=openapi.TYPE_INTEGER, required=True),
         openapi.Parameter('date', openapi.IN_QUERY, type=openapi.TYPE_STRING, description='YYYY-MM-DD'),
         openapi.Parameter('duration', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='20, 30, 40 или 60 мин'),
     ],
@@ -156,8 +155,7 @@ class TutorsTimeTableListApiView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        tutor_id = self.kwargs.get("tutorId") or self.kwargs.get("tutor_id")
-        return TutorsTimeTable.objects.filter(tutor=tutor_id)
+        return TutorsTimeTable.objects.filter(tutor=self.request.user)
 
 
 @swagger_auto_schema(
@@ -165,7 +163,6 @@ class TutorsTimeTableListApiView(ListAPIView):
     operation_summary='Отзывы о преподавателе',
     operation_description='Список отзывов по tutorId. Query: page, limit.',
     manual_parameters=[
-        openapi.Parameter('tutorId', openapi.IN_PATH, type=openapi.TYPE_INTEGER, required=True),
         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_INTEGER),
         openapi.Parameter('limit', openapi.IN_QUERY, type=openapi.TYPE_INTEGER),
     ],
@@ -177,8 +174,7 @@ class TutorsReviewListApiView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        tutor_id = self.kwargs.get("tutorId") or self.kwargs.get("tutor_id")
-        return Reviews.objects.filter(tutor=tutor_id)
+        return Reviews.objects.filter(tutor=self.request.user)
 
 @swagger_auto_schema(
     tags=['Tutor App'],

@@ -1,5 +1,6 @@
 from django.db import models
 
+from apps.student_profiles.models import StudentProfile
 from apps.lessons.models import Lessons
 from apps.tutors_profiles.models import TutorsTimeTable
 
@@ -10,16 +11,16 @@ class Bookings(models.Model):
         ("Accepted", "Accepted"),
         ("Canceled", "Canceled")
     )
-    comment = models.TextField()
+    student = models.OneToOneField(StudentProfile, on_delete=models.CASCADE, related_name="student_bookings")
+    tutor = models.ForeignKey(TutorsTimeTable, on_delete=models.CASCADE, related_name="tutor_bookings")
     lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, name="lesson")
-    user = models.IntegerField()
-    tutor = models.ForeignKey(TutorsTimeTable, on_delete=models.CASCADE, related_name="bookings")
     status = models.CharField(choices=status_type, null=False, default="Pending")
+    comment = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
-        return f"{self.user}  {self.comment}"
+        return f"{self.student.first_name} {self.student.last_name}  {self.comment}"
 
 
     class Meta:

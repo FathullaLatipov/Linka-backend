@@ -5,7 +5,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
 
 from .models import StudentProfile
 from .serializer import StudentProfileSerializer, StudentProfileImageUpdateSerializer
@@ -126,8 +125,7 @@ class StudentProfileImageUpdateApiView(UpdateAPIView):
     permission_classes = [AllowAny]
 
     def get_object(self):
-        user_id = self.kwargs["user_id"]
-        return StudentProfile.objects.get(user=user_id)
+        return StudentProfile.objects.get(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", request.method == "PATCH")
@@ -157,7 +155,7 @@ class StudentProfileUpdateApiView(UpdateAPIView):
     permission_classes = [AllowAny]
 
     def get_object(self):
-        return get_object_or_404(StudentProfile,user=self.kwargs["user_id"])
+        return get_object_or_404(StudentProfile,user=self.request.user)
 
 
 @swagger_auto_schema(

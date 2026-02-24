@@ -11,4 +11,4 @@ class TutorsProfileAdmin(admin.ModelAdmin):
 
 @admin.register(TutorsTimeTable)
 class TutorsTimeTableAdmin(admin.ModelAdmin):
-    list_display = ('tutor', 'available_time', 'created_at')
+    list_display = ('tutor', 'day_of_week', 'available_time', 'created_at')

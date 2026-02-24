@@ -1,3 +1,4 @@
+from django.template.context_processors import request
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.generics import CreateAPIView, ListAPIView
@@ -44,7 +45,7 @@ class MyReviewsListApiView(ListAPIView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Reviews.objects.filter(user=self.request.user.id)
+            return Reviews.objects.filter(student=self.request.user.id)
         return Reviews.objects.none()
 
     def list(self, request, *args, **kwargs):
@@ -57,7 +58,6 @@ class MyReviewsListApiView(ListAPIView):
     tags=['Reviews'],
     operation_summary='Отзывы по user_id (legacy)',
     operation_description='Список отзывов пользователя по user_id в URL.',
-    manual_parameters=[openapi.Parameter('user_id', openapi.IN_PATH, type=openapi.TYPE_INTEGER, required=True)],
     responses={
         200: openapi.Response(description='Список отзывов'),
         404: openapi.Response(description='Пользователь не найден'),
@@ -68,5 +68,4 @@ class ReviewListApiView(ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        user_id = self.kwargs.get("user_id")
-        return Reviews.objects.filter(user=user_id)
+        return Reviews.objects.filter(student=self.request.user)

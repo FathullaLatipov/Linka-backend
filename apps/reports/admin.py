@@ -4,4 +4,4 @@ from .models import Reports
 
 @admin.register(Reports)
 class ReportsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'created_at')
+    list_display = ('id', 'student__first_name','student__last_name', "comment",'created_at')
