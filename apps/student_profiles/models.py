@@ -28,3 +28,5 @@ class StudentProfile(models.Model):
 
     class Meta:
         db_table = 'students_profile'
+        verbose_name = "Student profile"
+        verbose_name_plural = "Student profiles"

@@ -16,3 +16,5 @@ class Reviews(models.Model):
 
     class Meta:
         db_table = "comments"
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"

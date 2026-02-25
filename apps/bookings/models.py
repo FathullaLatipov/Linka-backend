@@ -25,3 +25,5 @@ class Bookings(models.Model):
 
     class Meta:
         db_table = "bookings"
+        verbose_name = "Booking"
+        verbose_name_plural = "Bookings"

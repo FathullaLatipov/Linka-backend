@@ -17,6 +17,8 @@ class TutorsProfile(models.Model):
 
     class Meta:
         db_table = 'tutors_profile'
+        verbose_name = "Tutor profile"
+        verbose_name_plural = "Tutor profiles"
 
 
 class TutorsTimeTable(models.Model):
@@ -27,3 +29,7 @@ class TutorsTimeTable(models.Model):
 
     def __str__(self):
         return f"{self.tutor.first_name} {self.tutor.last_name}"
+
+    class Meta:
+        verbose_name = "Tutors time table"
+        verbose_name_plural = "Tutors time tables"

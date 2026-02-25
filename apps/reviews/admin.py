@@ -10,3 +10,4 @@ class ReviewsAdmin(admin.ModelAdmin):
                     'student__last_name',
                     'created_at')
     search_fields = ('comment',)
+
