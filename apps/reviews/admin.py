@@ -8,6 +8,9 @@ class ReviewsAdmin(admin.ModelAdmin):
                     'tutor__last_name',
                     'student__first_name',
                     'student__last_name',
+                    'comment',
                     'created_at')
-    search_fields = ('comment',)
+    search_fields = ('tutor__first_name','tutor__last_name','student__first_name','student__last_name')
+    ordering = ('-created_at',)
+
 

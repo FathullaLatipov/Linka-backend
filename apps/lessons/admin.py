@@ -4,6 +4,6 @@ from .models import Lessons
 
 @admin.register(Lessons)
 class LessonsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at')
+    list_display = ('name', 'description','created_at')
     search_fields = ('name',)
     ordering = ("-created_at",)
