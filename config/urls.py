@@ -49,6 +49,7 @@ urlpatterns = [
     path("api/v1/", include("apps.bookings.urls")),
     path("api/v1/", include("apps.reviews.urls")),
     path("api/v1/", include("apps.reports.urls")),
+    path("api/v1/", include("apps.daily.urls")),
     re_path(r"^swagger/$", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     re_path(r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
